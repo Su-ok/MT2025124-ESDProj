@@ -2,6 +2,7 @@ package com.erp.erp.mapper;
 
 import com.erp.erp.dto.FeeDto;
 import com.erp.erp.entity.Fee;
+import com.erp.erp.exception.ResourceNotFoundException;
 import com.erp.erp.repository.DepartmentRepository;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public abstract class FeeMapper implements BaseMapper<Fee, FeeDto> {
         if (departmentId == null) {
             return null;
         }
-        return departmentRepository.findById(departmentId).orElse(null);
+        return departmentRepository.findById(departmentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Department", "id", departmentId));
     }
 }
