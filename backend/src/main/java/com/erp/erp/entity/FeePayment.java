@@ -40,7 +40,7 @@ public class FeePayment {
     private String remarks;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "received_by")
+    @JoinColumn(name = "received_by", nullable = false)
     private Employee receivedBy;
     
     @Column(name = "is_verified", columnDefinition = "boolean default false")

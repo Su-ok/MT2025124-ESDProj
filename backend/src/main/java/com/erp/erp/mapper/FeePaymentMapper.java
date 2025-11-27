@@ -2,6 +2,7 @@ package com.erp.erp.mapper;
 
 import com.erp.erp.dto.FeePaymentDto;
 import com.erp.erp.entity.*;
+import com.erp.erp.exception.ResourceNotFoundException;
 import com.erp.erp.repository.EmployeeRepository;
 import com.erp.erp.repository.FeeRepository;
 import com.erp.erp.repository.StudentRepository;
@@ -47,20 +48,23 @@ public abstract class FeePaymentMapper implements BaseMapper<FeePayment, FeePaym
         if (studentId == null) {
             return null;
         }
-        return studentRepository.findById(studentId).orElse(null);
+        return studentRepository.findById(studentId)
+                .orElseThrow(()-> new ResourceNotFoundException("Student", "id", studentId));
     }
 
     protected Fee getFee(Long feeId) {
         if (feeId == null) {
             return null;
         }
-        return feeRepository.findById(feeId).orElse(null);
+        return feeRepository.findById(feeId)
+                .orElseThrow(()-> new ResourceNotFoundException("Fee", "id", feeId));
     }
 
     protected Employee getEmployee(Long employeeId) {
         if (employeeId == null) {
             return null;
         }
-        return employeeRepository.findById(employeeId).orElse(null);
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(()-> new ResourceNotFoundException("ReceivedBy", "id", employeeId));
     }
 }
