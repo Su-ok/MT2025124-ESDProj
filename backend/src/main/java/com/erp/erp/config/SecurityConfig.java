@@ -14,22 +14,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/login", "/oauth2/**", "/error").permitAll()
-                .requestMatchers("/api/fees/**").hasRole("ACCOUNTS")
-                .anyRequest().authenticated()
-            )
-            .oauth2Login(oauth2 -> oauth2
-                .loginPage("/login")
-                .defaultSuccessUrl("/api/fees")
-            )
-            .logout(logout -> logout
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
-                .deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true)
-            )
-            .csrf(csrf -> csrf.disable());
+//            .authorizeHttpRequests(auth -> auth
+//                .requestMatchers("/", "/login", "/oauth2/**", "/error").permitAll()
+//                .requestMatchers("/api/fees/**").hasRole("ACCOUNTS")
+//                .anyRequest().authenticated()
+//            )
+//            .oauth2Login(oauth2 -> oauth2
+//                .loginPage("/login")
+//                .defaultSuccessUrl("/api/fees")
+//            )
+//            .logout(logout -> logout
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/")
+//                .deleteCookies("JSESSIONID")
+//                .invalidateHttpSession(true)
+//            )
+            .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
 
         return http.build();
     }
